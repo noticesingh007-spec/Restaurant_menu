@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Lalghat Cafe — Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #fdf6ee;
+      --surface:   #ffffff;
+      --primary:   #7b3f00;
+      --accent:    #c8860a;
+      --accent2:   #e8a020;
+      --text:      #2d1a0e;
+      --muted:     #7a6555;
+      --divider:   #e8d9c8;
+      --badge-bg:  #fff3e0;
+      --nav-bg:    #7b3f00;
+      --nav-text:  #fff;
+      --shadow:    0 2px 12px rgba(123,63,0,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Hero Header ── */
+    .hero {
+      background: url('Gemini_Generated_Image_xnjytjxnjytjxnjy.png') center center / cover no-repeat;
+      color: #fff;
+      text-align: center;
+      padding: 64px 24px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(40,15,0,.55) 0%, rgba(80,30,0,.65) 100%);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 8vw, 3.2rem);
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-shadow: 0 2px 12px rgba(0,0,0,.6);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-sub {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      opacity: .9;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-line {
+      width: 60px;
+      height: 2px;
+      background: var(--accent2);
+      margin: 16px auto 0;
+      border-radius: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Sticky Nav ── */
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    .nav-scroll {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 8px;
+      gap: 4px;
+    }
+    .nav-scroll::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,.75);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      padding: 14px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--accent2);
+      border-bottom-color: var(--accent2);
+    }
+
+    /* ── Main Content ── */
+    .content { padding: 0 0 60px; }
+
+    /* ── Category Section ── */
+    .category {
+      margin: 28px 16px 0;
+      background: var(--surface);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(90deg, var(--primary), #a05a20);
+      color: #fff;
+      padding: 16px 20px;
+    }
+    .cat-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .cat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* ── Sub-heading (e.g., Paratha with Curd and Pickle) ── */
+    .sub-heading {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 14px 20px 4px;
+      border-top: 1px solid var(--divider);
+    }
+    .sub-heading:first-child { border-top: none; }
+
+    /* ── Menu Item ── */
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 20px;
+      border-top: 1px solid var(--divider);
+      transition: background .15s;
+    }
+    .item:active { background: #fdf0e2; }
+    .item:first-child { border-top: none; }
+
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.35;
+      flex: 1;
+      padding-right: 12px;
+    }
+    .item-name small {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .item-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      background: var(--badge-bg);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #e8c88a;
+    }
+    .item-price::before { content: '₹'; font-size: .8rem; margin-right: 1px; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .footer strong { color: var(--primary); font-size: 1rem; display: block; margin-bottom: 4px; }
+
+    /* ── Scroll-to-top ── */
+    .fab {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1.3rem;
+      border: none;
+      box-shadow: 0 4px 14px rgba(123,63,0,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .3s, transform .3s;
+      z-index: 200;
+    }
+    .fab.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<header class="hero">
+  <h1>Lalghat Cafe</h1>
+  <div class="hero-line"></div>
+</header>
+
+<!-- Sticky Nav -->
+<nav class="nav-wrap" aria-label="Menu categories">
+  <div class="nav-scroll">
+    <button class="nav-btn" onclick="jumpTo('hot-bev')">☕ Hot Drinks</button>
+    <button class="nav-btn" onclick="jumpTo('bev')">🥤 Beverages</button>
+    <button class="nav-btn" onclick="jumpTo('starters')">🍟 Starters</button>
+    <button class="nav-btn" onclick="jumpTo('bread')">🥪 Bread</button>
+    <button class="nav-btn" onclick="jumpTo('breakfast')">🍽️ Breakfast</button>
+    <button class="nav-btn" onclick="jumpTo('maggi')">🍜 Maggi</button>
+    <button class="nav-btn" onclick="jumpTo('egg')">🍳 Egg</button>
+    <button class="nav-btn" onclick="jumpTo('pizza')">🍕 Pizza</button>
+    <button class="nav-btn" onclick="jumpTo('pancake')">🥞 Pancake</button>
+  </div>
+</nav>
+
+<!-- Content -->
+<main class="content">
+
+  <!-- HOT BEVERAGES -->
+  <section class="category" id="hot-bev">
+    <div class="cat-header">
+      <span class="cat-icon">☕</span>
+      <span class="cat-title">Hot Beverages</span>
+    </div>
+    <div class="item"><span class="item-name">Indian Tea / Lemon Tea</span><span class="item-price">80</span></div>
+    <div class="item"><span class="item-name">Green Tea</span><span class="item-price">100</span></div>
+    <div class="item"><span class="item-name">Hot Coffee / Black Coffee</span><span class="item-price">130</span></div>
+    <div class="item"><span class="item-name">Hot Chocolate</span><span class="item-price">130</span></div>
+    <div class="item"><span class="item-name">Hot Lemon Ginger Honey</span><span class="item-price">110</span></div>
+  </section>
+
+  <!-- BEVERAGES & SHAKES -->
+  <section class="category" id="bev">
+    <div class="cat-header">
+      <span class="cat-icon">🥤</span>
+      <span class="cat-title">Beverages &amp; Shakes</span>
+    </div>
+    <div class="item"><span class="item-name">Mineral Water</span><span class="item-price">20</span></div>
+    <div class="item"><span class="item-name">Cold Drinks</span><span class="item-price">70</span></div>
+    <div class="item"><span class="item-name">Lemon Soda</span><span class="item-price">100</span></div>
+    <div class="item"><span class="item-name">Nimbu Pani</span><span class="item-price">60</span></div>
+    <div class="item"><span class="item-name">Butter Milk</span><span class="item-price">80</span></div>
+    <div class="item"><span class="item-name">Cold Coffee</span><span class="item-price">170</span></div>
+    <div class="item"><span class="item-name">Cold Coffee Choco Ice Cream</span><span class="item-price">210</span></div>
+    <div class="item"><span class="item-name">Lassi <small>Sweet / Salted</small></span><span class="item-price">120</span></div>
+    <div class="item"><span class="item-name">Lassi <small>Banana / Lemon / Honey</small></span><span class="item-price">170</span></div>
+    <div class="item"><span class="item-name">Virgin Mojito</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Orange Mojito</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Shake <small>Banana / Honey</small></span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Oreo Shake</span><span class="item-price">210</span></div>
+  </section>
+
+  <!-- STARTERS -->
+  <section class="category" id="starters">
+    <div class="cat-header">
+      <span class="cat-icon">🍟</span>
+      <span class="cat-title">Starters</span>
+    </div>
+    <div class="item"><span class="item-name">Roasted Papad</span><span class="item-price">50</span></div>
+    <div class="item"><span class="item-name">Masala Papad</span><span class="item-price">90</span></div>
+    <div class="item"><span class="item-name">Salted Peanuts</span><span class="item-price">120</span></div>
+    <div class="item"><span class="item-name">Peanut Masala</span><span class="item-price">120</span></div>
+    <div class="item"><span class="item-name">French Fry</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Cheesy Fries</span><span class="item-price">230</span></div>
+    <div class="item"><span class="item-name">Peri Peri French Fry</span><span class="item-price">230</span></div>
+    <div class="item"><span class="item-name">Peri Peri Cheesy French Fry</span><span class="item-price">260</span></div>
+    <div class="item"><span class="item-name">Veg Pakora</span><span class="item-price">210</span></div>
+    <div class="item"><span class="item-name">Paneer Pakora</span><span class="item-price">260</span></div>
+  </section>
+
+  <!-- BREAD & SANDWICH -->
+  <section class="category" id="bread">
+    <div class="cat-header">
+      <span class="cat-icon">🥪</span>
+      <span class="cat-title">Bread &amp; Sandwich</span>
+    </div>
+    <div class="item"><span class="item-name">Toast <small>Butter / Jam / Honey</small></span><span class="item-price">80</span></div>
+    <div class="item"><span class="item-name">Veg Sandwich</span><span class="item-price">130</span></div>
+    <div class="item"><span class="item-name">Cheese Sandwich</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Veg Cheese Sandwich</span><span class="item-price">180</span></div>
+  </section>
+
+  <!-- INDIAN BREAKFAST -->
+  <section class="category" id="breakfast">
+    <div class="cat-header">
+      <span class="cat-icon">🍽️</span>
+      <span class="cat-title">Indian Breakfast</span>
+    </div>
+    <div class="item"><span class="item-name">Poha</span><span class="item-price">130</span></div>
+    <div class="item"><span class="item-name">Upma</span><span class="item-price">160</span></div>
+
+    <div class="sub-heading">🫓 Paratha with Curd and Pickle</div>
+    <div class="item"><span class="item-name">Plain Paratha</span><span class="item-price">120</span></div>
+    <div class="item"><span class="item-name">Paratha <small>Aalo / Onion / Mix Veg</small></span><span class="item-price">160</span></div>
+    <div class="item"><span class="item-name">Paratha Gobi</span><span class="item-price">160</span></div>
+    <div class="item"><span class="item-name">Paratha <small>Cheese / Paneer</small></span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Paratha Cheese Garlic</span><span class="item-price">180</span></div>
+  </section>
+
+  <!-- MAGGI -->
+  <section class="category" id="maggi">
+    <div class="cat-header">
+      <span class="cat-icon">🍜</span>
+      <span class="cat-title">Maggi</span>
+    </div>
+    <div class="item"><span class="item-name">Maggi Masala</span><span class="item-price">160</span></div>
+    <div class="item"><span class="item-name">Maggi Masala Cheese</span><span class="item-price">210</span></div>
+    <div class="item"><span class="item-name">Maggi Vegetable</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Maggi Vegetable Cheese</span><span class="item-price">230</span></div>
+  </section>
+
+  <!-- EGG -->
+  <section class="category" id="egg">
+    <div class="cat-header">
+      <span class="cat-icon">🍳</span>
+      <span class="cat-title">Egg</span>
+    </div>
+    <div class="item"><span class="item-name">Boiled Egg <small>One</small></span><span class="item-price">80</span></div>
+    <div class="item"><span class="item-name">Plain Omelette</span><span class="item-price">120</span></div>
+    <div class="item"><span class="item-name">Plain Cheese Omelette</span><span class="item-price">120</span></div>
+    <div class="item"><span class="item-name">Veg Masala Omelette</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Veg Cheese Omelette</span><span class="item-price">210</span></div>
+  </section>
+
+  <!-- PIZZA -->
+  <section class="category" id="pizza">
+    <div class="cat-header">
+      <span class="cat-icon">🍕</span>
+      <span class="cat-title">Pizza</span>
+    </div>
+    <div class="item"><span class="item-name">Garlic Bread</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Margarita Pizza</span><span class="item-price">250</span></div>
+    <div class="item"><span class="item-name">Farmhouse Pizza</span><span class="item-price">300</span></div>
+    <div class="item"><span class="item-name">Exotic Pizza</span><span class="item-price">350</span></div>
+    <div class="item"><span class="item-name">Veg Supreme Pizza</span><span class="item-price">350</span></div>
+  </section>
+
+  <!-- PANCAKE -->
+  <section class="category" id="pancake">
+    <div class="cat-header">
+      <span class="cat-icon">🥞</span>
+      <span class="cat-title">Pancake (Egg)</span>
+    </div>
+    <div class="item"><span class="item-name">Pancake</span><span class="item-price">80</span></div>
+    <div class="item"><span class="item-name">Pancake Honey</span><span class="item-price">130</span></div>
+    <div class="item"><span class="item-name">Pancake Honey Banana</span><span class="item-price">180</span></div>
+    <div class="item"><span class="item-name">Pancake Nutella</span><span class="item-price">220</span></div>
+    <div class="item"><span class="item-name">Pancake Nutella Banana</span><span class="item-price">260</span></div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <strong>☕ Lalghat Cafe</strong>
+  All prices exclusive of taxes &bull; Thank you for visiting!
+</footer>
+
+<!-- Scroll-to-top FAB -->
+<button class="fab" id="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('.category');
+  const navBtns  = document.querySelectorAll('.nav-btn');
+  const fab      = document.getElementById('fab');
+
+  // Renamed to jumpTo to avoid shadowing window.scrollTo
+  function jumpTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...sections].indexOf(e.target);
+        navBtns.forEach((b, i) => b.classList.toggle('active', i === idx));
+        // scroll nav button into view
+        if (navBtns[idx]) {
+          navBtns[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // FAB visibility
+  window.addEventListener('scroll', () => {
+    fab.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+</script>
+</body>
+</html>
