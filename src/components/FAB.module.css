@@ -1,0 +1,26 @@
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #7b3f00;
+  color: #fff;
+  font-size: 1.3rem;
+  border: none;
+  box-shadow: 0 4px 14px rgba(123,63,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .3s, transform .3s;
+  z-index: 200;
+}
+
+.fab.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

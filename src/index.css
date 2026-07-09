@@ -1,0 +1,23 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #fdf6ee;
+  --surface:  #ffffff;
+  --primary:  #7b3f00;
+  --accent:   #c8860a;
+  --accent2:  #e8a020;
+  --text:     #2d1a0e;
+  --muted:    #7a6555;
+  --divider:  #e8d9c8;
+  --badge-bg: #fff3e0;
+  --shadow:   0 2px 12px rgba(123,63,0,.10);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
